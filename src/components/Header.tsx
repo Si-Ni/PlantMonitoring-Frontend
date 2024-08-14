@@ -1,10 +1,4 @@
-import {
-  Navbar,
-  NavbarContent,
-  NavbarItem,
-  Link,
-  Button,
-} from "@nextui-org/react";
+import { Navbar, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
 import FilterPopOver from "./FilterPopOver";
 
 function Header(props: { plantNames: string[] }) {

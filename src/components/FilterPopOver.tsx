@@ -1,8 +1,4 @@
-import {
-  getLocalTimeZone,
-  now,
-  parseAbsoluteToLocal,
-} from "@internationalized/date";
+import { getLocalTimeZone, now, parseAbsoluteToLocal } from "@internationalized/date";
 import {
   Popover,
   PopoverTrigger,
@@ -11,7 +7,7 @@ import {
   Select,
   SelectItem,
   DatePicker,
-  DateValue,
+  DateValue
 } from "@nextui-org/react";
 import { I18nProvider } from "@react-aria/i18n";
 import { useState } from "react";
@@ -37,9 +33,7 @@ function FilterPopOver(props: { plantNames: string[] }) {
               isRequired
               label="Plant name"
               placeholder="Select a plant"
-              defaultSelectedKeys={
-                props.plantNames.length > 0 ? ["0"] : undefined
-              }
+              defaultSelectedKeys={props.plantNames.length > 0 ? ["0"] : undefined}
               className="max-w-xs"
             >
               {props.plantNames.map((plantName, i) => (

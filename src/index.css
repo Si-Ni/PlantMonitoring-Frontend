@@ -3,41 +3,13 @@
 @tailwind utilities;
 
 body {
-  background: radial-gradient(
-      circle at 10% 90%,
-      rgba(85, 0, 170, 0.1) 0%,
-      rgba(85, 0, 170, 0) 40%
-    ),
-    radial-gradient(
-      circle at 85% 15%,
-      rgba(0, 50, 80, 0.15) 0%,
-      rgba(0, 50, 80, 0) 50%
-    ),
-    radial-gradient(
-      circle at 75% 25%,
-      rgba(45, 0, 90, 0.05) 0%,
-      rgba(45, 0, 90, 0) 35%
-    ),
-    radial-gradient(
-      circle at 20% 80%,
-      rgba(0, 170, 100, 0.1) 0%,
-      rgba(0, 170, 100, 0) 40%
-    ),
-    radial-gradient(
-      circle at 40% 60%,
-      rgba(255, 100, 0, 0.05) 0%,
-      rgba(255, 100, 0, 0) 30%
-    ),
-    radial-gradient(
-      circle at 60% 40%,
-      rgba(170, 0, 170, 0.1) 0%,
-      rgba(170, 0, 170, 0) 35%
-    ),
-    radial-gradient(
-      ellipse at 90% 10%,
-      rgba(85, 0, 170, 0.05) 0%,
-      rgba(85, 0, 170, 0) 40%
-    ),
+  background: radial-gradient(circle at 10% 90%, rgba(85, 0, 170, 0.1) 0%, rgba(85, 0, 170, 0) 40%),
+    radial-gradient(circle at 85% 15%, rgba(0, 50, 80, 0.15) 0%, rgba(0, 50, 80, 0) 50%),
+    radial-gradient(circle at 75% 25%, rgba(45, 0, 90, 0.05) 0%, rgba(45, 0, 90, 0) 35%),
+    radial-gradient(circle at 20% 80%, rgba(0, 170, 100, 0.1) 0%, rgba(0, 170, 100, 0) 40%),
+    radial-gradient(circle at 40% 60%, rgba(255, 100, 0, 0.05) 0%, rgba(255, 100, 0, 0) 30%),
+    radial-gradient(circle at 60% 40%, rgba(170, 0, 170, 0.1) 0%, rgba(170, 0, 170, 0) 35%),
+    radial-gradient(ellipse at 90% 10%, rgba(85, 0, 170, 0.05) 0%, rgba(85, 0, 170, 0) 40%),
     linear-gradient(135deg, #000000 0%, #0a0a0a 100%);
   background-attachment: fixed;
   background-size: cover;

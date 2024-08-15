@@ -5,7 +5,7 @@ import "./index.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <NextUIProvider>
-    <main className="dark text-foreground bg-background">
+    <main className="dark text-foreground">
       <App />
     </main>
   </NextUIProvider>

@@ -6,6 +6,7 @@ function Header(props: {
   plantNames: string[];
   setQueryParams: React.Dispatch<React.SetStateAction<QueryParams | null>>;
   currentPlant: string;
+  isLoadingPlantNames: boolean;
 }) {
   return (
     <Navbar maxWidth={"xl"}>
@@ -16,7 +17,11 @@ function Header(props: {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <FilterPopOver plantNames={props.plantNames} setQueryParams={props.setQueryParams} />
+          <FilterPopOver
+            plantNames={props.plantNames}
+            setQueryParams={props.setQueryParams}
+            isLoadingPlantNames={props.isLoadingPlantNames}
+          />
         </NavbarItem>
         <NavbarItem>
           <Button as={Link} color="danger" href="#" variant="flat">

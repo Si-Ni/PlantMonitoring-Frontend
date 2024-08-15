@@ -1,4 +1,5 @@
 import ReactApexChart from "react-apexcharts";
+import { ApexOptions } from "apexcharts";
 
 function ApexChart({ sensors, color }: { sensors: any; color: string }) {
   const groupedSensors = sensors.reduce((acc: Record<string, { x: number; y: number }[]>, sensor: any) => {
@@ -17,7 +18,7 @@ function ApexChart({ sensors, color }: { sensors: any; color: string }) {
     data: groupedSensors[type].sort((a: any, b: any) => a.x - b.x)
   }));
 
-  const options = {
+  const options: ApexOptions = {
     chart: {
       background: "#18181B",
       type: "area",
@@ -29,9 +30,12 @@ function ApexChart({ sensors, color }: { sensors: any; color: string }) {
         autoScaleYaxis: true
       },
       toolbar: {
-        autoSelected: "zoom",
-        theme: "dark"
+        autoSelected: "zoom"
       }
+    },
+    stroke: {
+      curve: "smooth",
+      width: 2
     },
     dataLabels: {
       enabled: false

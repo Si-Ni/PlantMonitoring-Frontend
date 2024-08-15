@@ -11,6 +11,10 @@ export type Sensor = {
   unit: string;
 };
 
+export interface SensorWithTimestamp extends Sensor {
+  timestamp: number;
+}
+
 export type PlantData = {
   sensors: Sensor[];
   ts: number;

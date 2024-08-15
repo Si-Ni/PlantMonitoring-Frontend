@@ -1,7 +1,13 @@
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
+import { SensorWithTimestamp } from "../types/global";
 
-function ApexChart({ sensors, color }: { sensors: any; color: string }) {
+interface ApexChartProps {
+  sensors: SensorWithTimestamp[];
+  color: string;
+}
+
+function ApexChart({ sensors, color }: ApexChartProps) {
   const groupedSensors = sensors.reduce((acc: Record<string, { x: number; y: number }[]>, sensor: any) => {
     const dataPoint = { x: sensor.timestamp * 1000, y: sensor.value };
     if (!isNaN(dataPoint.x) && !isNaN(dataPoint.y)) {

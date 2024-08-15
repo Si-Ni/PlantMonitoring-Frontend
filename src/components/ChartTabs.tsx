@@ -1,13 +1,17 @@
 import { Tabs, Tab, Card, CardBody } from "@nextui-org/react";
 import ApexChart from "./ApexChart";
-import { PlantData } from "../types/global";
+import { PlantData, SensorWithTimestamp } from "../types/global";
 import sensorColors from "../data/sensorColors.json";
 
-function ChartTabs(props: { plantData: PlantData[] }) {
+interface ChartTabsProps {
+  plantData: PlantData[];
+}
+
+function ChartTabs(props: ChartTabsProps) {
   const sensorTypes = Array.from(new Set(props.plantData.flatMap((data) => data.sensors.map((sensor) => sensor.type))));
 
   const tabs = sensorTypes.map((type) => {
-    const sensors = props.plantData.flatMap((data) =>
+    const sensors: SensorWithTimestamp[] = props.plantData.flatMap((data) =>
       data.sensors
         .filter((sensor) => sensor.type === type)
         .map((sensor) => ({

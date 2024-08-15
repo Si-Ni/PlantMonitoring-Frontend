@@ -13,11 +13,13 @@ import { I18nProvider } from "@react-aria/i18n";
 import { useEffect, useState } from "react";
 import { QueryParams } from "../types/global";
 
-function FilterPopOver(props: {
+interface FilterPopOverProps {
   plantNames: string[];
   setQueryParams: React.Dispatch<React.SetStateAction<QueryParams | null>>;
   isLoadingPlantNames: boolean;
-}) {
+}
+
+function FilterPopOver(props: FilterPopOverProps) {
   const [plantName, setPlantName] = useState<string>("");
   const [dateFrom, setDateFrom] = useState<DateValue | null>(null);
   const [dateTo, setDateTo] = useState<DateValue | null>(null);

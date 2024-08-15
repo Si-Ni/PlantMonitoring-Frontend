@@ -19,7 +19,7 @@ function ApexChart({ sensors, color }: { sensors: any; color: string }) {
 
   const options = {
     chart: {
-      background: "transparent",
+      background: "#18181B",
       type: "area",
       stacked: false,
       height: 350,

@@ -10,7 +10,7 @@ const PLANT_NAMES_ROUTE = "/getPlantNames";
 const PLANT_DATA_ROUTE = "/getPlantData";
 
 function Dashboard() {
-  const [cookies] = useCookies(['apiKey']); // Retrieve apiKey from cookies
+  const [cookies] = useCookies(['apiKey']);
   const [plantNames, setPlantNames] = useState<string[]>([]);
   const [queryParams, setQueryParams] = useState<QueryParams | null>(null);
   const [plantData, setPlantData] = useState<PlantData[]>([]);
@@ -22,8 +22,6 @@ function Dashboard() {
 
   useEffect(() => {
     if (!apiKey) return;
-
-    console.log(apiKey)
 
     setIsLoadingPlantNames(true); 
 

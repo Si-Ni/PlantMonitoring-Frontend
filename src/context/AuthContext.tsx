@@ -18,7 +18,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const login = () => setIsAuthenticated(true);
   const logout = () => {
     removeCookie('apiKey');
-    console.log("hi")
     setIsAuthenticated(false);
   }
 

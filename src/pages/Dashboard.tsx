@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import { PlantData, QueryParams } from "../types/global.ts";
 import axios from "../api/axios";
 import ChartTabs from "../components/ChartTabs.tsx";
+import { useAuth } from "../context/AuthContext.tsx";
 
 const PLANT_NAMES_ROUTE = "/getPlantNames";
 const PLANT_DATA_ROUTE = "/getPlantData";
@@ -12,6 +13,9 @@ function Dashboard() {
   const [queryParams, setQueryParams] = useState<QueryParams | null>(null);
   const [plantData, setPlantData] = useState<PlantData[]>([]);
   const [currentPlant, setCurrentPlant] = useState<string>("");
+
+  const { logout } = useAuth();
+
 
   useEffect(() => {
     axios

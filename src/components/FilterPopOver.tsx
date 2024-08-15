@@ -6,16 +6,20 @@ import {
   Select,
   SelectItem,
   DatePicker,
-  DateValue
+  DateValue,
+  Spinner
 } from "@nextui-org/react";
 import { I18nProvider } from "@react-aria/i18n";
 import { useEffect, useState } from "react";
 import { QueryParams } from "../types/global";
 
-function FilterPopOver(props: {
+interface FilterPopOverProps {
   plantNames: string[];
   setQueryParams: React.Dispatch<React.SetStateAction<QueryParams | null>>;
-}) {
+  isLoadingPlantNames: boolean;
+}
+
+function FilterPopOver(props: FilterPopOverProps) {
   const [plantName, setPlantName] = useState<string>("");
   const [dateFrom, setDateFrom] = useState<DateValue | null>(null);
   const [dateTo, setDateTo] = useState<DateValue | null>(null);
@@ -44,9 +48,12 @@ function FilterPopOver(props: {
     <PopoverContent className="w-[240px] bg">
       {(titleProps) => (
         <div className="px-1 py-2 w-full">
-          <p className="text-small font-bold text-foreground" {...titleProps}>
-            Filters
-          </p>
+          <div className="flex">
+            <p className="text-small font-bold text-foreground" {...titleProps}>
+              Filters
+            </p>
+            {props.isLoadingPlantNames && <Spinner className="ml-3" size="sm" />}
+          </div>
           <div className="mt-2 flex flex-col gap-2 w-full">
             <Select
               isRequired

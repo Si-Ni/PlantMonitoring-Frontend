@@ -3,7 +3,7 @@ import Header from "../components/Header";
 import { PlantData, QueryParams } from "../types/global.ts";
 import axios from "../api/axios";
 import ChartTabs from "../components/ChartTabs.tsx";
-import { useAuth } from "../context/AuthContext.tsx";
+import { Progress } from "@nextui-org/react";
 
 const PLANT_NAMES_ROUTE = "/getPlantNames";
 const PLANT_DATA_ROUTE = "/getPlantData";
@@ -13,21 +13,23 @@ function Dashboard() {
   const [queryParams, setQueryParams] = useState<QueryParams | null>(null);
   const [plantData, setPlantData] = useState<PlantData[]>([]);
   const [currentPlant, setCurrentPlant] = useState<string>("");
-
-  const { logout } = useAuth();
-
+  const [isLoadingPlantNames, setIsLoadingPlantNames] = useState<boolean>(true);
+  const [isLoadingPlantData, setIsLoadingPlantData] = useState<boolean>(false);
 
   useEffect(() => {
     axios
       .get(PLANT_NAMES_ROUTE)
       .then((res) => {
         setPlantNames(res.data.plantNames);
+        setIsLoadingPlantNames(false);
       })
       .catch(() => {});
   }, []);
 
   useEffect(() => {
     if (!queryParams) return;
+
+    setIsLoadingPlantData(true);
 
     axios
       .get(PLANT_DATA_ROUTE, {
@@ -36,15 +38,29 @@ function Dashboard() {
       .then((res) => {
         setCurrentPlant(res.data.data[0]?.plantName || "");
         setPlantData(res.data.data[0]?.measurements || []);
+        setIsLoadingPlantData(false);
       })
       .catch(() => {});
   }, [queryParams]);
 
   return (
     <>
-      <Header plantNames={plantNames} setQueryParams={setQueryParams} currentPlant={currentPlant}></Header>
+      <Header
+        plantNames={plantNames}
+        setQueryParams={setQueryParams}
+        currentPlant={currentPlant}
+        isLoadingPlantNames={isLoadingPlantNames}
+      ></Header>
       <div className="flex justify-center">
-        <div className="w-9/12 mt-20">{plantData.length != 0 && <ChartTabs plantData={plantData}></ChartTabs>}</div>
+        <div className="w-9/12 mt-20">
+          {isLoadingPlantData ? (
+            <div className="flex w-full full-h justify-center mt-20">
+              <Progress size="sm" isIndeterminate aria-label="Loading..." className="max-w-md" />
+            </div>
+          ) : (
+            plantData.length !== 0 && <ChartTabs plantData={plantData} />
+          )}
+        </div>
       </div>
     </>
   );

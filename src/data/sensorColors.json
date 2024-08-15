@@ -5,11 +5,11 @@
   },
   {
     "name": "humidity",
-    "color": "#4CAF50"
+    "color": "#17c964"
   },
   {
     "name": "pressure",
-    "color": "#1A73E8"
+    "color": "#006FEE"
   },
   {
     "name": "light_intensity",
@@ -17,6 +17,6 @@
   },
   {
     "name": "soil_moisture",
-    "color": "#312107"
+    "color": "#AE7EDE"
   }
 ]

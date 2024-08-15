@@ -1,29 +1,32 @@
 import ReactApexChart from "react-apexcharts";
+import { ApexOptions } from "apexcharts";
+import { SensorWithTimestamp } from "../types/global";
 
-function ApexChart({ sensors, color }: { sensors: any; color: string }) {
-  const groupedSensors = sensors.reduce(
-    (acc: any, sensor: any) => {
+interface ApexChartProps {
+  sensors: SensorWithTimestamp[];
+  color: string;
+}
+
+function ApexChart({ sensors, color }: ApexChartProps) {
+  const groupedSensors = sensors.reduce((acc: Record<string, { x: number; y: number }[]>, sensor: any) => {
+    const dataPoint = { x: sensor.timestamp * 1000, y: sensor.value };
+    if (!isNaN(dataPoint.x) && !isNaN(dataPoint.y)) {
       if (!acc[sensor.type]) {
         acc[sensor.type] = [];
       }
-      const dataPoint = { x: sensor.timestamp * 1000, y: sensor.value };
-      if (isNaN(dataPoint.x) || isNaN(dataPoint.y)) {
-        console.warn("Invalid data point:", dataPoint);
-      }
       acc[sensor.type].push(dataPoint);
-      return acc;
-    },
-    {} as Record<string, { x: number; y: number }[]>
-  );
+    }
+    return acc;
+  }, {});
 
   const series = Object.keys(groupedSensors).map((type) => ({
     name: type.toUpperCase(),
-    data: groupedSensors[type]
+    data: groupedSensors[type].sort((a: any, b: any) => a.x - b.x)
   }));
 
-  const options = {
+  const options: ApexOptions = {
     chart: {
-      background: "transparent",
+      background: "#18181B",
       type: "area",
       stacked: false,
       height: 350,
@@ -33,9 +36,12 @@ function ApexChart({ sensors, color }: { sensors: any; color: string }) {
         autoScaleYaxis: true
       },
       toolbar: {
-        autoSelected: "zoom",
-        theme: "dark"
+        autoSelected: "zoom"
       }
+    },
+    stroke: {
+      curve: "smooth",
+      width: 2
     },
     dataLabels: {
       enabled: false

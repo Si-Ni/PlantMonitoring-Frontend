@@ -3,7 +3,6 @@ import FilterPopOver from "./FilterPopOver";
 import { QueryParams } from "../types/global";
 import { useAuth } from "../context/AuthContext.tsx";
 
-
 interface HeaderProps {
   plantNames: string[];
   setQueryParams: React.Dispatch<React.SetStateAction<QueryParams | null>>;
@@ -13,7 +12,6 @@ interface HeaderProps {
 
 function Header(props: HeaderProps) {
   const { logout } = useAuth();
-
 
   return (
     <Navbar maxWidth={"xl"}>

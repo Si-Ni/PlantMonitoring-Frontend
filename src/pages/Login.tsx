@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Input, Button, Card, CardBody } from "@nextui-org/react";
 import { EyeSlashFilledIcon } from '../components/EyeSlashFilledIcon';
 import { EyeFilledIcon } from '../components/EyeFilledIcon';
@@ -11,8 +11,8 @@ const AUTH_USER_ROUTE = "/authUser";
 
 function Login() {
   const [isVisible, setIsVisible] = useState(false);
-  const [userID, setUserID] = useState<string>('');
-  const [userPWD, setUserPWD] = useState<string>('');
+  const [userID, setUserID] = useState<string>("");
+  const [userPWD, setUserPWD] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   
@@ -103,12 +103,7 @@ function Login() {
             isInvalid={Boolean(error)}
             onChange={handleUserPWDChange}
           />
-          <Button 
-            onPress={handleSubmit} 
-            color="primary" 
-            className="w-full mb-4 mt-6"
-            isLoading={isLoading} 
-          >
+          <Button onPress={handleSubmit} color="primary" className="w-full mb-4 mt-6" isLoading={isLoading}>
             Log In
           </Button>
         </CardBody>

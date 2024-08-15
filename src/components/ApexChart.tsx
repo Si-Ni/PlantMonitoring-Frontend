@@ -1,24 +1,20 @@
 import ReactApexChart from "react-apexcharts";
 
 function ApexChart({ sensors, color }: { sensors: any; color: string }) {
-  const groupedSensors = sensors.reduce(
-    (acc: any, sensor: any) => {
+  const groupedSensors = sensors.reduce((acc: Record<string, { x: number; y: number }[]>, sensor: any) => {
+    const dataPoint = { x: sensor.timestamp * 1000, y: sensor.value };
+    if (!isNaN(dataPoint.x) && !isNaN(dataPoint.y)) {
       if (!acc[sensor.type]) {
         acc[sensor.type] = [];
       }
-      const dataPoint = { x: sensor.timestamp * 1000, y: sensor.value };
-      if (isNaN(dataPoint.x) || isNaN(dataPoint.y)) {
-        console.warn("Invalid data point:", dataPoint);
-      }
       acc[sensor.type].push(dataPoint);
-      return acc;
-    },
-    {} as Record<string, { x: number; y: number }[]>
-  );
+    }
+    return acc;
+  }, {});
 
   const series = Object.keys(groupedSensors).map((type) => ({
     name: type.toUpperCase(),
-    data: groupedSensors[type]
+    data: groupedSensors[type].sort((a: any, b: any) => a.x - b.x)
   }));
 
   const options = {

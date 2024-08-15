@@ -1,4 +1,3 @@
-import { getLocalTimeZone, now, parseAbsoluteToLocal } from "@internationalized/date";
 import {
   Popover,
   PopoverTrigger,
@@ -10,15 +9,35 @@ import {
   DateValue
 } from "@nextui-org/react";
 import { I18nProvider } from "@react-aria/i18n";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { QueryParams } from "../types/global";
 
-function FilterPopOver(props: { plantNames: string[] }) {
+function FilterPopOver(props: {
+  plantNames: string[];
+  setQueryParams: React.Dispatch<React.SetStateAction<QueryParams | null>>;
+}) {
+  const [plantName, setPlantName] = useState<string>("");
   const [dateFrom, setDateFrom] = useState<DateValue | null>(null);
   const [dateTo, setDateTo] = useState<DateValue | null>(null);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  useEffect(() => {
+    setPlantName(props.plantNames.length > 0 ? props.plantNames[0] : "");
+  }, [props.plantNames]);
 
   const clearFilters = () => {
     setDateFrom(null);
     setDateTo(null);
+  };
+
+  const fillSearchParams = () => {
+    const queryParams: QueryParams = {
+      plant: plantName,
+      startTs: dateFrom && new Date(dateFrom.toString()).getTime() / 1000,
+      endTs: dateTo && new Date(dateTo.toString()).getTime() / 1000
+    };
+    props.setQueryParams(queryParams);
+    setIsOpen(false);
   };
 
   const content = (
@@ -35,6 +54,9 @@ function FilterPopOver(props: { plantNames: string[] }) {
               placeholder="Select a plant"
               defaultSelectedKeys={props.plantNames.length > 0 ? ["0"] : undefined}
               className="max-w-xs"
+              onChange={(event: React.ChangeEvent<HTMLSelectElement>) =>
+                setPlantName(props.plantNames[Number(event.target.value)])
+              }
             >
               {props.plantNames.map((plantName, i) => (
                 <SelectItem key={i}>{plantName}</SelectItem>
@@ -67,7 +89,7 @@ function FilterPopOver(props: { plantNames: string[] }) {
             <Button color="danger" variant="flat" onClick={clearFilters}>
               Clear
             </Button>
-            <Button color="primary" variant="flat">
+            <Button color="primary" variant="flat" onClick={fillSearchParams}>
               Search
             </Button>
           </div>
@@ -77,7 +99,7 @@ function FilterPopOver(props: { plantNames: string[] }) {
   );
 
   return (
-    <Popover showArrow offset={10} placement="bottom" backdrop="blur">
+    <Popover isOpen={isOpen} onOpenChange={setIsOpen} showArrow offset={10} placement="bottom" backdrop="blur">
       <PopoverTrigger>
         <Button color="primary" variant="flat" className="capitalize">
           Filter

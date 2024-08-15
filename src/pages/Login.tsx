@@ -1,55 +1,53 @@
-import { useState } from 'react';
+import { useState } from "react";
 import { Input, Button, Card, CardBody } from "@nextui-org/react";
-import { EyeSlashFilledIcon } from '../components/EyeSlashFilledIcon';
-import { EyeFilledIcon } from '../components/EyeFilledIcon';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import axios from '../api/axios';
+import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
+import { EyeFilledIcon } from "../components/EyeFilledIcon";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
 
 const AUTH_USER_ROUTE = "/authUser";
 
 function Login() {
   const [isVisible, setIsVisible] = useState(false);
-  const [userID, setUserID] = useState<string>('');
-  const [userPWD, setUserPWD] = useState<string>('');
+  const [userID, setUserID] = useState<string>("");
+  const [userPWD, setUserPWD] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
   const { login } = useAuth();
-  
+
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const handleSubmit = () => {
-    if(!userID || !userPWD) return
-    setIsLoading(true); 
-    axios.post(
-      AUTH_USER_ROUTE,
-      { userID, userPWD }, { withCredentials: true }
-    )
-    .then((res) => {
-      if (res.status === 200) {
-        login();
-        navigate('/dashboard');
-      } else {
-        setError('Authentication failed');
-      }
-    })
-    .catch(() => {
-      setError('An error occurred. Please try again.');
-    })
-    .finally(() => {
-      setIsLoading(false);
-    });
+    if (!userID || !userPWD) return;
+    setIsLoading(true);
+    axios
+      .post(AUTH_USER_ROUTE, { userID, userPWD }, { withCredentials: true })
+      .then((res) => {
+        if (res.status === 200) {
+          login();
+          navigate("/dashboard");
+        } else {
+          setError("Authentication failed");
+        }
+      })
+      .catch(() => {
+        setError("An error occurred. Please try again.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const handleUserIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserID(e.target.value);
-    setError(null); 
+    setError(null);
   };
 
   const handleUserPWDChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserPWD(e.target.value);
-    setError(null); 
+    setError(null);
   };
 
   return (
@@ -97,12 +95,7 @@ function Login() {
             isInvalid={Boolean(error)}
             onChange={handleUserPWDChange}
           />
-          <Button 
-            onPress={handleSubmit} 
-            color="primary" 
-            className="w-full mb-4 mt-6"
-            isLoading={isLoading} 
-          >
+          <Button onPress={handleSubmit} color="primary" className="w-full mb-4 mt-6" isLoading={isLoading}>
             Log In
           </Button>
         </CardBody>

@@ -1,6 +1,7 @@
 import { Navbar, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/react";
 import FilterPopOver from "./FilterPopOver";
 import { QueryParams } from "../types/global";
+import { useAuth } from "../context/AuthContext.tsx";
 
 interface HeaderProps {
   plantNames: string[];
@@ -10,6 +11,8 @@ interface HeaderProps {
 }
 
 function Header(props: HeaderProps) {
+  const { logout } = useAuth();
+
   return (
     <Navbar maxWidth={"xl"}>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
@@ -26,7 +29,7 @@ function Header(props: HeaderProps) {
           />
         </NavbarItem>
         <NavbarItem>
-          <Button as={Link} color="danger" href="#" variant="flat">
+          <Button as={Link} color="danger" href="#" variant="flat" onClick={logout}>
             Logout
           </Button>
         </NavbarItem>

@@ -1,0 +1,22 @@
+[
+  {
+    "name": "temperature",
+    "color": "#f54180"
+  },
+  {
+    "name": "humidity",
+    "color": "#4CAF50"
+  },
+  {
+    "name": "pressure",
+    "color": "#1A73E8"
+  },
+  {
+    "name": "light_intensity",
+    "color": "#f5a524"
+  },
+  {
+    "name": "soil_moisture",
+    "color": "#312107"
+  }
+]

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
-import { QueryParams } from "../types/global.ts";
+import { PlantData, QueryParams } from "../types/global.ts";
 import axios from "../api/axios";
+import ChartTabs from "../components/ChartTabs.tsx";
 
 const PLANT_NAMES_ROUTE = "/getPlantNames";
 const PLANT_DATA_ROUTE = "/getPlantData";
@@ -9,7 +10,7 @@ const PLANT_DATA_ROUTE = "/getPlantData";
 function Dashboard() {
   const [plantNames, setPlantNames] = useState<string[]>([]);
   const [queryParams, setQueryParams] = useState<QueryParams | null>(null);
-  const [plantData, setPlantData] = useState<any[]>([]);
+  const [plantData, setPlantData] = useState<PlantData[]>([]);
   const [currentPlant, setCurrentPlant] = useState<string>("");
 
   useEffect(() => {
@@ -31,7 +32,6 @@ function Dashboard() {
       .then((res) => {
         setCurrentPlant(res.data.data[0]?.plantName || "");
         setPlantData(res.data.data[0]?.measurements || []);
-        console.log(res.data.data[0]?.measurements);
       })
       .catch(() => {});
   }, [queryParams]);
@@ -39,6 +39,9 @@ function Dashboard() {
   return (
     <>
       <Header plantNames={plantNames} setQueryParams={setQueryParams} currentPlant={currentPlant}></Header>
+      <div className="flex justify-center">
+        <div className="w-9/12 mt-20">{plantData.length != 0 && <ChartTabs plantData={plantData}></ChartTabs>}</div>
+      </div>
     </>
   );
 }

@@ -2,12 +2,14 @@ import { Navbar, NavbarContent, NavbarItem, Link, Button } from "@nextui-org/rea
 import FilterPopOver from "./FilterPopOver";
 import { QueryParams } from "../types/global";
 
-function Header(props: {
+interface HeaderProps {
   plantNames: string[];
   setQueryParams: React.Dispatch<React.SetStateAction<QueryParams | null>>;
   currentPlant: string;
   isLoadingPlantNames: boolean;
-}) {
+}
+
+function Header(props: HeaderProps) {
   return (
     <Navbar maxWidth={"xl"}>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">

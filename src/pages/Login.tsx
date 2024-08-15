@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Input, Button,  Card, CardBody } from "@nextui-org/react";
-import { EyeSlashFilledIcon } from '../components/EyeSlashFilledIcon';
-import { EyeFilledIcon } from '../components/EyeFilledIcon';
+import { useState } from "react";
+import { Input, Button, Card, CardBody } from "@nextui-org/react";
+import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
+import { EyeFilledIcon } from "../components/EyeFilledIcon";
 
 function Login() {
   const [email, setEmail] = useState<string>("");
@@ -22,7 +22,10 @@ function Login() {
       <Card className="w-full max-w-md p-6 bg-content">
         <CardBody className="flex flex-col items-center">
           <h2 className="text-2xl bg-gradient-to-r from-primary via-pink-500 to-danger bg-clip-text text-transparent mb-6">
-            PlantMonitoring <span role="img" aria-label="wave">🌱</span>
+            PlantMonitoring{" "}
+            <span role="img" aria-label="wave">
+              🌱
+            </span>
           </h2>
           <Input
             type="email"

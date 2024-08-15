@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { useCookies } from 'react-cookie';
+
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -10,9 +12,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [, ,removeCookie] = useCookies(['apiKey']);
+
 
   const login = () => setIsAuthenticated(true);
-  const logout = () => setIsAuthenticated(false);
+  const logout = () => {
+    removeCookie('apiKey');
+    console.log("hi")
+    setIsAuthenticated(false);
+  }
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout }}>

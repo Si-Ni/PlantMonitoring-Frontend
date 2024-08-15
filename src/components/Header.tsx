@@ -9,11 +9,6 @@ function Header(props: {
 }) {
   return (
     <Navbar maxWidth={"xl"}>
-      <NavbarContent className="hidden sm:flex gap-4" justify="start">
-        <NavbarItem className="text-sm text-foreground">
-          <h1>Next update in 01:00</h1>
-        </NavbarItem>
-      </NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem className="text-2xl bg-gradient-to-r from-primary via-pink-500 to-danger bg-clip-text text-transparent">
           <h1>{props.currentPlant != "" ? props.currentPlant : "PlantMonitoring"}</h1>

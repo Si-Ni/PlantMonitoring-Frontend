@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Input, Button, Card, CardBody } from "@nextui-org/react";
-import { EyeSlashFilledIcon } from '../components/EyeSlashFilledIcon';
-import { EyeFilledIcon } from '../components/EyeFilledIcon';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
-import axios from '../api/axios';
-import { useCookies } from 'react-cookie';
+import { EyeSlashFilledIcon } from "../components/EyeSlashFilledIcon";
+import { EyeFilledIcon } from "../components/EyeFilledIcon";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
+import { useCookies } from "react-cookie";
 
 const AUTH_USER_ROUTE = "/authUser";
 
@@ -15,37 +15,34 @@ function Login() {
   const [userPWD, setUserPWD] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-  
+
   const navigate = useNavigate();
   const { login } = useAuth();
-  const [, setCookie] = useCookies(['apiKey']);
+  const [, setCookie] = useCookies(["apiKey"]);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
   const handleSubmit = () => {
     if (!userID || !userPWD) return;
     setIsLoading(true);
-    axios.post(
-      AUTH_USER_ROUTE,
-      { userID, userPWD },
-      { withCredentials: true }
-    )
-    .then((res) => {
-      if (res.status === 200) {
-        const authCookie = res.data.cookie; 
-        setCookie('apiKey', authCookie, { path: '/' });
-        login();
-        navigate('/dashboard');
-      } else {
-        setError('Authentication failed');
-      }
-    })
-    .catch(() => {
-      setError('An error occurred. Please try again.');
-    })
-    .finally(() => {
-      setIsLoading(false);
-    });
+    axios
+      .post(AUTH_USER_ROUTE, { userID, userPWD }, { withCredentials: true })
+      .then((res) => {
+        if (res.status === 200) {
+          const authCookie = res.data.cookie;
+          setCookie("apiKey", authCookie, { path: "/" });
+          login();
+          navigate("/dashboard");
+        } else {
+          setError("Authentication failed");
+        }
+      })
+      .catch(() => {
+        setError("An error occurred. Please try again.");
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
   };
 
   const handleUserIDChange = (e: React.ChangeEvent<HTMLInputElement>) => {

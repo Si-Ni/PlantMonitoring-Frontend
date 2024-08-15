@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useCookies } from 'react-cookie';
+import { useCookies } from "react-cookie";
 import Header from "../components/Header";
 import { PlantData, QueryParams } from "../types/global.ts";
 import axios from "../api/axios";
@@ -10,7 +10,7 @@ const PLANT_NAMES_ROUTE = "/getPlantNames";
 const PLANT_DATA_ROUTE = "/getPlantData";
 
 function Dashboard() {
-  const [cookies] = useCookies(['apiKey']);
+  const [cookies] = useCookies(["apiKey"]);
   const [plantNames, setPlantNames] = useState<string[]>([]);
   const [queryParams, setQueryParams] = useState<QueryParams | null>(null);
   const [plantData, setPlantData] = useState<PlantData[]>([]);
@@ -18,12 +18,12 @@ function Dashboard() {
   const [isLoadingPlantNames, setIsLoadingPlantNames] = useState<boolean>(true);
   const [isLoadingPlantData, setIsLoadingPlantData] = useState<boolean>(false);
 
-  const apiKey = cookies.apiKey; 
+  const apiKey = cookies.apiKey;
 
   useEffect(() => {
     if (!apiKey) return;
 
-    setIsLoadingPlantNames(true); 
+    setIsLoadingPlantNames(true);
 
     axios
       .get(PLANT_NAMES_ROUTE, {
@@ -33,17 +33,17 @@ function Dashboard() {
       })
       .then((res) => {
         setPlantNames(res.data.plantNames);
-        setIsLoadingPlantNames(false); 
+        setIsLoadingPlantNames(false);
       })
       .catch(() => {
-        setIsLoadingPlantNames(false); 
+        setIsLoadingPlantNames(false);
       });
-  }, [apiKey]); 
+  }, [apiKey]);
 
   useEffect(() => {
-    if (!queryParams || !apiKey) return; 
+    if (!queryParams || !apiKey) return;
 
-    setIsLoadingPlantData(true); 
+    setIsLoadingPlantData(true);
     axios
       .get(PLANT_DATA_ROUTE, {
         params: {
@@ -55,12 +55,12 @@ function Dashboard() {
       .then((res) => {
         setCurrentPlant(res.data.data[0]?.plantName || "");
         setPlantData(res.data.data[0]?.measurements || []);
-        setIsLoadingPlantData(false); 
+        setIsLoadingPlantData(false);
       })
       .catch(() => {
-        setIsLoadingPlantData(false); 
+        setIsLoadingPlantData(false);
       });
-  }, [queryParams, apiKey]); 
+  }, [queryParams, apiKey]);
 
   return (
     <>

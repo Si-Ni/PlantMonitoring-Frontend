@@ -5,6 +5,7 @@ import { EyeFilledIcon } from "../components/EyeFilledIcon";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import axios from "../api/axios";
+import { useCookies } from "react-cookie";
 
 const AUTH_USER_ROUTE = "/authUser";
 
@@ -14,8 +15,10 @@ function Login() {
   const [userPWD, setUserPWD] = useState<string>("");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
   const navigate = useNavigate();
   const { login } = useAuth();
+  const [, setCookie] = useCookies(["apiKey"]);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
 
@@ -26,6 +29,8 @@ function Login() {
       .post(AUTH_USER_ROUTE, { userID, userPWD }, { withCredentials: true })
       .then((res) => {
         if (res.status === 200) {
+          const authCookie = res.data.cookie;
+          setCookie("apiKey", authCookie, { path: "/" });
           login();
           navigate("/dashboard");
         } else {

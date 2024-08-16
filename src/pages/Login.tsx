@@ -70,7 +70,7 @@ function Login() {
             type="text"
             variant="bordered"
             className="mb-4 w-full"
-            placeholder="Enter your Username"
+            placeholder="Enter your username"
             value={userID}
             isInvalid={Boolean(error)}
             onChange={handleUserIDChange}
